@@ -9,6 +9,7 @@ This is the web admin software for [**NEMP Server**](https://github.com/libersof
 ## Documentation
 
 - [**Installation instructions**](./INSTALL.md)
+- [**Development roadmap**](./ROADMAP.md)
 - [**License**](./LICENSE)
 
 ## Donations

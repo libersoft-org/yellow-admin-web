@@ -1,7 +1,5 @@
 # The New E-Mail Protocol (NEMP) - web admin software roadmap
 
-## Web admin
-
 |     Feature    |     Implemented    |
 |----------------|--------------------|
 | Server status  | :heavy_check_mark: |

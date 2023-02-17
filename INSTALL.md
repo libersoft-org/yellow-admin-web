@@ -1,6 +1,6 @@
 # The New E-Mail Protocol (NEMP) - web admin software - installation instructions
 
-To download the latest version of NEMP web admin, run the following commands:
+To download the latest version of this software, run the following commands:
 
 ```console
 apt update
@@ -21,8 +21,8 @@ This is the example for NEMP server stored in /root/nemp-server/:
 - Move the content of the "src" folder to your web root:
 
 ```console
-mkdir /root/nemp-server/www/webmail
-mv ./src /root/nemp-server/www/webmail
+mkdir /root/nemp-server/www/webadmin
+mv ./src /root/nemp-server/www/webadmin
 ```
 
 - Then open the web browser and navigate to: https://nemp.domain.tld/webadmin/
@@ -75,4 +75,4 @@ Then restart your NGINX server using:
 /etc/init.d/nginx restart
 ```
 
-**IMPORTANT NOTE:** In this case, you cannot run the NEMP server on the same network port as your NGINX server. Please edit your **settings.json** file and change the HTTPS port to something else than 443 and and turn off the HTTP (by default on port 80) by setting the "http_run" property from "true" to "false" as it is used by NGINX too. Don't forget to specify the NEMP Server HTTPS port in the TXT record in your DNS as well.
+**IMPORTANT NOTE:** If you are using this software for NEMP Server, you cannot run the NEMP Server on the same network port as your NGINX Server. Please edit your **settings.json** file in your NEMP Server "src" directory and change the HTTPS port to something else than 443 and and turn off the HTTP (by default on port 80) by setting the "http_run" property from "true" to "false" as it is used by NGINX too. Don't forget to specify the NEMP Server HTTPS port in the TXT record in your DNS as well.

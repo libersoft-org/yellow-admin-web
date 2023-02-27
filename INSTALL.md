@@ -31,11 +31,12 @@ Here are examples based on web server software that you're using:
 
 ### NEMP Server
 
-- Move the content of the "src" folder to your NEMP Server web root subdirectory (example for server stored in **/root/nemp-server/** directory):
+- Move the content of the "src" folder to your NEMP Server web root subdirectory (you can find the folder in **settings.json** of your NEMP Server), for example:
 
 ```console
-mkdir /root/nemp-server/src/www/admin
-mv ./src /root/nemp-server/src/www/admin
+mkdir -p /var/www/nemp
+mkdir -p /var/www/nemp/admin
+mv ./src /var/www/nemp/admin
 ```
 
 - Then open the web browser and navigate to: https://nemp.domain.tld/client/ (replace **nemp.domain.tld** with your actual NEMP Server domain name)

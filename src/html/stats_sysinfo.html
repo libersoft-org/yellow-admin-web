@@ -12,8 +12,12 @@
  <div class="header">System resources</div>
  <div class="content">
   <div class="bold">CPU model:</div><div>{CPU_MODEL}</div>
-  <div class="bold">CPU usage:</div><div>{CPU_USAGE}</div>
-  <div class="bold">RAM usage:</div><div>{RAM_USAGE}</div>
+  <div class="bold">CPU usage:</div><div class="data-bar">
+    <div id="cpu-bar" class="progress-bar">{CPU_USAGE}</div>
+  </div>
+  <div class="bold">RAM usage:</div><div class="data-bar">
+    <div id="ram-bar" class="progress-bar pb-ram">{RAM_USAGE}</div>
+  </div>
   <div class="bold">Network interfaces:</div><div>{NETWORK}</div>
  </div>
 </div>

@@ -410,3 +410,13 @@ input[type='submit'] {
 .menu-span {
     margin-left: 3rem;
 }
+.data-bar {
+    width: 90%;
+    background-color: var(--primary-color);
+}
+.progress-bar {
+    background-color: #FFFFFF;
+    padding: 5px;
+    border: 1px solid var(--primary-color);
+    font-size: .9rem;
+}

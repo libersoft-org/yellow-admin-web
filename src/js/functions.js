@@ -30,10 +30,10 @@ window.onload = async function() {
  wsConnect(server);
  let page_ = '';
  var login = localStorage.getItem('admin_token') ? false : true;
- if(window.location.pathname.split('webadmin/')[1]) page_ = window.location.pathname.split('webadmin/')[1]
+ if(window.location.pathname.split('admin/')[1]) page_ = window.location.pathname.split('admin/')[1]
  else page_ = 'stats';
  document.querySelector('#page').innerHTML = await getFileContent('html/' + (login ? 'login' : 'home') + '.html');
- replaceWindowState('/webadmin/' + page_);
+ replaceWindowState('/admin/' + page_);
  if (login) document.querySelector('#user').focus();
  else getPage(page_);
 }
@@ -62,31 +62,31 @@ async function getPage(name) {
  document.querySelector('#menu-' + name).classList.add('active');
  document.querySelector('#content').innerHTML = await getFileContent('html/' + name + '.html');
  if (name === 'stats') {
-  replaceWindowState("/webadmin/stats");
+  replaceWindowState("/admin/stats");
   setTimeout(() => {
    getStats();
   }, time);
  }
  if (name === 'domains') {
-  replaceWindowState("/webadmin/domains");
+  replaceWindowState("/admin/domains");
   setTimeout(() => {
    getDomains();
   }, time);
  }
  if (name === 'users') {
-  replaceWindowState("/webadmin/users");
+  replaceWindowState("/admin/users");
   setTimeout(() => {
    getUsers(active_domain);
   }, time);
  }
  if (name === 'aliases') {
-  replaceWindowState("/webadmin/aliases");
+  replaceWindowState("/admin/aliases");
   setTimeout(() => {
    getAliases(active_domain);
   }, time);
  }
  if (name === 'admins') {
-  replaceWindowState("/webadmin/admins");
+  replaceWindowState("/admin/admins");
   setTimeout(() => {
    getAdmins();
   }, time);
@@ -518,7 +518,17 @@ async function wsOnMessage(data) {
    active_admin = data.data.id;
   }
   if (data.command == 'admin_logout') setAdminLogout(data);
-  if (data.command == 'admin_sysinfo') setSysInfo(data);
+  if (data.command == 'admin_sysinfo') {
+   setSysInfo(data);setTimeout(() => {
+      let cpu_usage_bar = document.querySelector('#cpu-bar');
+      let ram_usage_bar = document.querySelector('#ram-bar');
+      let progress_bar_ram = document.querySelector('.pb-ram');
+      cpu_usage_bar.style.width = data.data.cpu_load + '%';
+      let ram_percentage = parseFloat(data.data.ram_free/ data.data.ram_total, 10) * 100;
+      ram_usage_bar.style.width = ram_percentage + '%';
+      progress_bar_ram.textContent += " (" +ram_percentage.toFixed(0) + '%)';
+   }, time);
+  }
   if (data.command == 'admin_get_domains') {
    for(let i = 0; i < data.data.length; i++) {
       domainsData.push({name: data.data[i].name, id: data.data[i].id});
@@ -672,7 +682,7 @@ async function setSysInfo(res) {
   '{UPTIME}': res.data.uptime,
   '{CPU_MODEL}': res.data.cpu_cores + 'x ' + res.data.cpu_model,
   '{CPU_USAGE}': res.data.cpu_load + '%',
-  '{RAM_USAGE}': res.data.ram_free + ' / ' + res.data.ram_total,
+  '{RAM_USAGE}': res.data.ram_free.toFixed(2) + 'GB / ' + res.data.ram_total.toFixed(2) + 'GB',
   '{NETWORK}': res.data.networks
  });
 }

@@ -564,19 +564,27 @@ async function wsOnMessage(data) {
   }
   if (data.command == 'admin_add_user') {
    getPage('users');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Added user \"" + item_name + "\" successfully<br/><br/>";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+     document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
+   }
+   else {
+     document.querySelector("#err_msg").innerHTML = "Added user \"" + item_name + "\" successfully<br/><br/>";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").focus();
+   }
   }
   if (data.command == 'admin_set_user') {
    getPage('users');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Updated user \"" + item_name + "\" successfully";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+      document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
+   }
+   else {
+     document.querySelector("#err_msg").innerHTML = "Updated user \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").focus();
+  }
   }
   if (data.command == 'admin_del_user') {
    getPage('users');
@@ -587,19 +595,27 @@ async function wsOnMessage(data) {
   }
   if (data.command == 'admin_add_aliases') {
    getPage('aliases');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Added alias \"" + item_name + "\" successfully";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+     document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
+  }
+   else {
+     document.querySelector("#err_msg").innerHTML = "Added alias \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").focus();
+  }
   }
   if (data.command == 'admin_set_aliases') {
    getPage('aliases');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Updatedm alias \"" + item_name + "\" successfully";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+     document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
+   }
+   else {
+     document.querySelector("#err_msg").innerHTML = "Updated alias \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").focus();
+   }
   }
   if (data.command == 'admin_add_admin') {
    getPage('admins');

@@ -434,7 +434,6 @@ async function adminAdd() {
  item_name = admin_name.value;
  wsSend({
   command: 'admin_add_admin',
-  domain_id: idData.id,
   name: admin_name.value,
   pass: admin_password.value,
   admin_token: localStorage.getItem('admin_token')
@@ -744,6 +743,7 @@ async function setAliasesDomains(res) {
 }
 
 async function setUsers(res) {
+ console.log({res_data: res.data});
  document.querySelector('#users').innerHTML = '<br/>&emsp;Checking...<br/><br/>';
  var rows = '';
  var rowTemp = await getFileContent('html/users_row.html');

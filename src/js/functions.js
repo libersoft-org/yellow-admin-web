@@ -743,7 +743,6 @@ async function setAliasesDomains(res) {
 }
 
 async function setUsers(res) {
- console.log({res_data: res.data});
  document.querySelector('#users').innerHTML = '<br/>&emsp;Checking...<br/><br/>';
  var rows = '';
  var rowTemp = await getFileContent('html/users_row.html');

@@ -578,6 +578,7 @@ async function wsOnMessage(data) {
      document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
    }
    else {
+     getUsers(active_domain)
      document.querySelector("#err_msg").innerHTML = "Added user \"" + item_name + "\" successfully<br/><br/>";
      document.querySelector("#mx-btn").style.display ='none';
      document.querySelector("#e").value ='Ok';

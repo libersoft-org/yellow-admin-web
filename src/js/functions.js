@@ -155,7 +155,7 @@ async function adminUpdate() {
 async function delAdminDialog(id, name) {
  idData.secondary_id = id;
  item_name = name;
- await getDialog('Delete Admin ' + id, translate(await getFileContent('html/admin_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete Admin ' + name, translate(await getFileContent('html/admin_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -190,7 +190,7 @@ async function domainAdd() {
 async function delDomainDialog(id, name) {
  idData.id = id;
  item_name = name;
- await getDialog('Delete domain ' + id, translate(await getFileContent('html/domain_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete domain ' + name, translate(await getFileContent('html/domain_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -228,7 +228,7 @@ async function domainUpdate() {
 async function delAliasDialog(id, name) {
  idData.id = id;
  item_name = name;
- await getDialog('Delete user ' + id, translate(await getFileContent('html/alias_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete user ' + name, translate(await getFileContent('html/alias_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -298,7 +298,7 @@ async function userUpdate() {
 async function delUserDialog(id, name) {
  idData.secondary_id = id;
  item_name = name;
- await getDialog('Delete user ' + id, translate(await getFileContent('html/user_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete user ' + name, translate(await getFileContent('html/user_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -544,108 +544,126 @@ async function wsOnMessage(data) {
    if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML = data.data.message;
    else document.querySelector("#err_msg").innerHTML = "Domain \"" + item_name + "\" removed successfully";
    document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
+   document.querySelector("#e").value ='Ok';
    document.querySelector("#e").focus();
-   getPage('domains');
+   // getDomains();
+   window.location.reload();
   }
   if (data.command == 'admin_add_domain') {
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Added domain \"" + item_name + "\" successfully";
-   getPage('domains');
+   if(data.data !== undefined && data.data.error) {
+     document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
+   }
+   else {
+     document.querySelector("#err_msg").innerHTML = "Added domain \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").value ='Ok';
+     document.querySelector("#e").focus();
+     getDomains();
+   }
   }
   if (data.command == 'admin_set_domain') {
-   getPage('domains');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Updated domain \"" + item_name + "\" successfully";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+      document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
+   }
+   else {
+     document.querySelector("#err_msg").innerHTML = "Updated domain \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").value ='Ok';
+     document.querySelector("#e").focus();
+     getDomains();
+   }
   }
   if (data.command == 'admin_add_user') {
-   getPage('users');
    if(data.data !== undefined && data.data.error) {
      document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
    }
    else {
+     getUsers(active_domain)
      document.querySelector("#err_msg").innerHTML = "Added user \"" + item_name + "\" successfully<br/><br/>";
      document.querySelector("#mx-btn").style.display ='none';
-     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").value ='Ok';
      document.querySelector("#e").focus();
    }
   }
   if (data.command == 'admin_set_user') {
-   getPage('users');
    if(data.data !== undefined && data.data.error) {
       document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
    }
    else {
+     getUsers(active_domain);
      document.querySelector("#err_msg").innerHTML = "Updated user \"" + item_name + "\" successfully";
      document.querySelector("#mx-btn").style.display ='none';
-     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").value ='Ok';
      document.querySelector("#e").focus();
-  }
+   }
   }
   if (data.command == 'admin_del_user') {
-   getPage('users');
+   getUsers(active_domain);
    document.querySelector("#err_msg").innerHTML = "Removed user \"" + item_name + "\" successfully";
    document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
+   document.querySelector("#e").value ='Ok';
    document.querySelector("#e").focus();
   }
   if (data.command == 'admin_add_aliases') {
-   getPage('aliases');
    if(data.data !== undefined && data.data.error) {
      document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
   }
    else {
+     getAliases(active_domain);
      document.querySelector("#err_msg").innerHTML = "Added alias \"" + item_name + "\" successfully";
      document.querySelector("#mx-btn").style.display ='none';
-     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").value ='Ok';
      document.querySelector("#e").focus();
-  }
+   }
   }
   if (data.command == 'admin_set_aliases') {
-   getPage('aliases');
    if(data.data !== undefined && data.data.error) {
      document.querySelector("#err_msg").innerHTML += data.data.message + formattedMessage;
    }
    else {
+     getAliases(active_domain);
      document.querySelector("#err_msg").innerHTML = "Updated alias \"" + item_name + "\" successfully";
      document.querySelector("#mx-btn").style.display ='none';
-     document.querySelector("#e").innerHTML ='Ok';
+     document.querySelector("#e").value ='Ok';
      document.querySelector("#e").focus();
    }
   }
   if (data.command == 'admin_add_admin') {
-   getPage('admins');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
-   document.querySelector("#err_msg").innerHTML = "Added admin \"" + item_name + "\" successfully";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+      document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
+   } else {
+     getAdmins();
+     document.querySelector("#err_msg").innerHTML = "Added admin \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").value ='Ok';
+     document.querySelector("#e").focus();
+   }
   }
   if (data.command == 'admin_set_admin') {
-   getPage('admins');
-   if(data.data !== undefined && data.data.error) document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
-   else document.querySelector("#err_msg").innerHTML = "Updated admin \"" + item_name + "\" successfully";
-   document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
-   document.querySelector("#e").focus();
+   if(data.data !== undefined && data.data.error) {
+      document.querySelector("#err_msg").innerHTML = data.data.message + formattedMessage;
+   }
+   else {
+     getAdmins();
+     document.querySelector("#err_msg").innerHTML = "Updated admin \"" + item_name + "\" successfully";
+     document.querySelector("#mx-btn").style.display ='none';
+     document.querySelector("#e").value ='Ok';
+     document.querySelector("#e").focus();
+   }
   }
   if (data.command == 'admin_del_aliases') {
-   getPage('aliases');
+   getAliases(active_domain);
    document.querySelector("#err_msg").innerHTML = "Removed alias \"" + item_name + "\" successfully";
    document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
+   document.querySelector("#e").value ='Ok';
    document.querySelector("#e").focus();
   }
   if (data.command == 'admin_del_admin') {
-   getPage('admins');
-   console.log({active_admin});
+   getAdmins();
    document.querySelector("#err_msg") ? 
    document.querySelector("#err_msg").innerHTML = "Removed admin \"" + item_name + "\" successfully" : null;
    document.querySelector("#mx-btn").style.display ='none';
-   document.querySelector("#e").innerHTML ='Ok';
+   document.querySelector("#e").value ='Ok';
    document.querySelector("#e").focus();
   }
  }

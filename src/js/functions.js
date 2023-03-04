@@ -155,7 +155,7 @@ async function adminUpdate() {
 async function delAdminDialog(id, name) {
  idData.secondary_id = id;
  item_name = name;
- await getDialog('Delete Admin ' + id, translate(await getFileContent('html/admin_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete Admin ' + name, translate(await getFileContent('html/admin_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -190,7 +190,7 @@ async function domainAdd() {
 async function delDomainDialog(id, name) {
  idData.id = id;
  item_name = name;
- await getDialog('Delete domain ' + id, translate(await getFileContent('html/domain_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete domain ' + name, translate(await getFileContent('html/domain_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -228,7 +228,7 @@ async function domainUpdate() {
 async function delAliasDialog(id, name) {
  idData.id = id;
  item_name = name;
- await getDialog('Delete user ' + id, translate(await getFileContent('html/alias_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete user ' + name, translate(await getFileContent('html/alias_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 
@@ -298,7 +298,7 @@ async function userUpdate() {
 async function delUserDialog(id, name) {
  idData.secondary_id = id;
  item_name = name;
- await getDialog('Delete user ' + id, translate(await getFileContent('html/user_delete.html'), { '{NAME}': name }));
+ await getDialog('Delete user ' + name, translate(await getFileContent('html/user_delete.html'), { '{NAME}': name }));
  focusErr();
 }
 

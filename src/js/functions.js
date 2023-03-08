@@ -33,15 +33,13 @@ window.onload = async function() {
  if(window.location.pathname.split('admin/')[1]) page_ = window.location.pathname.split('admin/')[1]
  else page_ = 'stats';
  document.querySelector('#page').innerHTML = await getFileContent('html/' + (login ? 'login' : 'home') + '.html');
- replaceWindowState('/admin/' + page_);
  if (login) document.querySelector('#user').focus();
  else getPage(page_);
 }
 
 function replaceWindowState(url) {
-   return window.history.replaceState(null, null, url);
+   return window.history.replaceState(null, null, window.location.protocol + '//' +window.location.hostname + '/' + url);
 }
-
 function setOptions() {
  let domainsSelect = document.querySelector('#select_domains');
  for (let i = 0; i < domainsData.length; i++) {
@@ -58,35 +56,36 @@ function setOptions() {
 
 async function getPage(name) {
  page = name;
+ console.log(window.location.pathname.split("/")[1], name)
  if (document.querySelectorAll('.active').length >= 1) document.querySelectorAll('.active')[0].classList.remove('active');
  document.querySelector('#menu-' + name).classList.add('active');
  document.querySelector('#content').innerHTML = await getFileContent('html/' + name + '.html');
+ replaceWindowState(window.location.pathname.split("/")[1] + '/' + name);
  if (name === 'stats') {
-  replaceWindowState("/admin/stats");
   setTimeout(() => {
    getStats();
   }, time);
  }
  if (name === 'domains') {
-  replaceWindowState("/admin/domains");
+  // replaceWindowState("/admin/domains");
   setTimeout(() => {
    getDomains();
   }, time);
  }
  if (name === 'users') {
-  replaceWindowState("/admin/users");
+  // replaceWindowState("/admin/users");
   setTimeout(() => {
    getUsers(active_domain);
   }, time);
  }
  if (name === 'aliases') {
-  replaceWindowState("/admin/aliases");
+  // replaceWindowState("/admin/aliases");
   setTimeout(() => {
    getAliases(active_domain);
   }, time);
  }
  if (name === 'admins') {
-  replaceWindowState("/admin/admins");
+  // replaceWindowState("/admin/admins");
   setTimeout(() => {
    getAdmins();
   }, time);
@@ -113,9 +112,9 @@ function login() {
  document.querySelector('#login').setAttribute('onsubmit', '');
  document.querySelector('#logbutton-label').style.cursor = 'default';
  wsSend({
-  command: 'admin_login',
-  user: document.querySelector('#user').value,
-  pass: document.querySelector('#pass').value
+  "command": 'admin_login',
+  "user": document.querySelector('#user').value,
+  "pass": document.querySelector('#pass').value
  });
  document.querySelector('#logbutton-label').style.backgroundColor = '#A0A0A0';
  document.querySelector('#logbutton-label').innerHTML = "<span class = 'loader'></span>";
@@ -362,15 +361,15 @@ async function aliasUpdate() {
 
 async function getStats() {
  wsSend({
-  command: 'admin_sysinfo', 
-  admin_token: localStorage.admin_token
+  "command": 'admin_sysinfo', 
+  "admin_token": localStorage.admin_token
  });
 }
 
 async function getDomains() {
  wsSend({
-  command: 'admin_get_domains',
-  admin_token: localStorage.admin_token
+  "command": 'admin_get_domains',
+  "admin_token": localStorage.admin_token
  });
 }
 
@@ -757,7 +756,7 @@ async function setAliasesDomains(res) {
    '{NAME}': res.data[i].name
   });
  }
- document.querySelector('#domains').innerHTML = rows;
+ if(document.querySelector('#domains')) document.querySelector('#domains').innerHTML = rows;
 }
 
 async function setUsers(res) {

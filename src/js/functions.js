@@ -11,10 +11,21 @@ let idData = {
 tips_for_strings = { 
    "message": "\n\nHere are a few tips:\n-Do not start or end a name with a dot\n-Do not include whitespaces in names\n-Ensure domain is active\n-Do not include special characters in domain name" },
 formattedMessage = tips_for_strings.message.replace(/\n/g, "<br>");
-function DateFormat(dateString) {
+function dateFormat(dateString) {
  try {
-  var date = new Date(dateString + ' UTC');
-  return date.toISOString().toLocaleString();
+  var day = dateString.getDate();
+  var month = dateString.getMonth() + 1; // Months are zero-based
+  var year = dateString.getFullYear();
+  var hour = dateString.getHours();
+  var minute = dateString.getMinutes();
+  var second = dateString.getSeconds();
+  if (day < 10) day = "0" + day;
+  if (month < 10) month = "0" + month;
+  if (hour < 10) hour = "0" + hour;
+  if (minute < 10) minute = "0" + minute;
+  if (second < 10) second = "0" + second;
+  let newDate = day + "-" + month + "-" + year + " " + hour + ":" + minute + ":" + second;
+  return newDate;
  } catch(e) {
    return dateString.toLocaleString();
  }
@@ -56,7 +67,6 @@ function setOptions() {
 
 async function getPage(name) {
  page = name;
- console.log(window.location.pathname.split("/")[1], name)
  if (document.querySelectorAll('.active').length >= 1) document.querySelectorAll('.active')[0].classList.remove('active');
  document.querySelector('#menu-' + name).classList.add('active');
  document.querySelector('#content').innerHTML = await getFileContent('html/' + name + '.html');
@@ -680,7 +690,6 @@ async function wsSend(data) {
 async function setAdminLogin(res) {
  var error = document.querySelector('#error');
  if (res.data.logged) {
-  console.log('admin authed: ', res.data);
   localStorage.setItem('admin_token', res.data.token);
   document.querySelector('#page').innerHTML = await getFileContent('html/home.html');
   await getPage('stats');
@@ -727,7 +736,7 @@ async function setDomains(res) {
     rows += translate(rowTemp, {
     '{ID}': res.data[i].id,
     '{NAME}': res.data[i].name,
-    '{CREATED}': DateFormat(res.data[i].created)
+    '{CREATED}': dateFormat(res.data[i].created)
     });
   }
   document.querySelector('#domains').innerHTML = rows;
@@ -772,7 +781,7 @@ async function setUsers(res) {
     '{PHOTO}': res.data[i].photo || './img/profile.svg',
     '{MESSAGES}': res.data[i].message_count,
     '{FILES_SIZE}': '?',
-    '{CREATED}': DateFormat(res.data[i].created)
+    '{CREATED}': dateFormat(res.data[i].created)
    });
   }
   document.querySelector('#users').innerHTML = rows;
@@ -789,7 +798,7 @@ async function setAliases(res) {
       '{ID}': res.data[i].id,
       '{ALIAS}': res.data[i].alias,
       '{MAIL}': res.data[i].mail,
-      '{CREATED}': DateFormat(res.data[i].created)
+      '{CREATED}': dateFormat(res.data[i].created)
      });
     }
     document.querySelector('#aliases').innerHTML = rows;
@@ -808,7 +817,7 @@ async function setAdmins(res) {
   rows += translate (rowTemp, {
    '{ID}': res.data[i].id,
    '{USER}': res.data[i].user,
-   '{CREATED}': DateFormat(res.data[i].created)
+   '{CREATED}': dateFormat(res.data[i].created)
   });
  }
  document.querySelector('#admins').innerHTML = rows;

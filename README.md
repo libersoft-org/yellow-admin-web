@@ -1,4 +1,4 @@
-# The New E-Mail Protocol (NEMP) - web admin software
+# NEMP Web Admin
 
 This is the web admin software for [**NEMP Server**](https://github.com/libersoft-org/nemp-server/).
 

@@ -4,7 +4,9 @@
 
 This is the web admin software for [**NEMP Server**](https://github.com/libersoft-org/nemp-server/).
 
-If you just want to get your free NEMP mailbox hosted on our server, please navigate to: **https://nemp.io**
+If you just want to get your free NEMP mailbox hosted on our server, please navigate to:
+
+[![NEMP.io](https://raw.githubusercontent.com/libersoft-org/nemp-documentation/main/logo.png)](https://nemp.io)
 
 ## Development status
 

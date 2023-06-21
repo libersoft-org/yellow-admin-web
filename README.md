@@ -1,12 +1,12 @@
-# NEMP Web Admin
+# Yellow Web Admin
 
-[![Created Badge](https://badges.pufler.dev/created/libersoft-org/nemp-admin-web)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/libersoft-org/nemp-admin-web)](https://badges.pufler.dev) [![Visits Badge](https://badges.pufler.dev/visits/libersoft-org/nemp-admin-web)](https://badges.pufler.dev)
+[![Created Badge](https://badges.pufler.dev/created/libersoft-org/yellow-admin-web)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/libersoft-org/yellow-admin-web)](https://badges.pufler.dev) [![Visits Badge](https://badges.pufler.dev/visits/libersoft-org/yellow-admin-web)](https://badges.pufler.dev)
 
-This is the web admin software for [**NEMP Server**](https://github.com/libersoft-org/nemp-server/).
+This is the web administration software for [**Yellow Server**](https://github.com/libersoft-org/yellow-server/).
 
-If you just want to get your free NEMP mailbox hosted on our server, please navigate to:
+If you just want to get your free [**Yellow**](https://yellow.libersoft.org) account hosted on our server, please navigate to:
 
-[![NEMP.io](https://raw.githubusercontent.com/libersoft-org/nemp-documentation/main/logo.png)](https://nemp.io)
+[![YellowNet.io](https://raw.githubusercontent.com/libersoft-org/odtp-documentation/main/logo.png)](https://yellownet.io)
 
 ## Development status
 
@@ -30,4 +30,4 @@ Thank you for being a part of our projects' success!
 
 ## Star history
 
-[![Star History Chart](https://api.star-history.com/svg?repos=libersoft-org/nemp-admin-web&type=Date)](https://star-history.com/#libersoft-org/nemp-admin-web&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=libersoft-org/yellow-admin-web&type=Date)](https://star-history.com/#libersoft-org/yellow-admin-web&Date)
